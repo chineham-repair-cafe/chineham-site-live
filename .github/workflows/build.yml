@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-deploy:
     name: Build & deploy static site to GitHub Pages.
+    permissions:
+      actions: read
+      pages: write
     concurrency: site-build-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
