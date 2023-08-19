@@ -1,0 +1,18 @@
+name: Blog website builder
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    concurrency: site-build-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy to GitHub
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: site
+        single-commit: true
