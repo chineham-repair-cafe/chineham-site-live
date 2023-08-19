@@ -1,9 +1,10 @@
 name: Chineham Repair Cafe - website builder and deployer
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
-    paths: [ "./site" ]
+    paths: [ "site/**" ]
 
 jobs:
   build-and-deploy:
