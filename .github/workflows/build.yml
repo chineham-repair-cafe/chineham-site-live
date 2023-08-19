@@ -1,12 +1,13 @@
-name: Blog website builder
+name: Chineham Repair Cafe - website builder and deployer
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [ "main" ]
+    paths: [ "./site" ]
 
 jobs:
-  build:
+  build-and-deploy:
+    name: Build & deploy static site to GitHub Pages.
     concurrency: site-build-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
