@@ -11,6 +11,7 @@ jobs:
     name: Build & deploy static site to GitHub Pages.
     permissions:
       actions: read
+      contents: write
       pages: write
     concurrency: site-build-${{ github.ref }}
     runs-on: ubuntu-latest
