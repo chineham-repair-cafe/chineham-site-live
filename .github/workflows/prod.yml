@@ -17,7 +17,7 @@ env:
 
 jobs:
   push-staging-to-production:
-    name: Publish docs to Wiki
+    name: Push to Production website, when ready.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
