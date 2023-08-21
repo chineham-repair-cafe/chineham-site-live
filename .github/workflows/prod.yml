@@ -18,6 +18,7 @@ env:
 jobs:
   push-staging-to-production:
     name: Push to Production website, when ready.
+    if: ${{ github.repository == 'chineham-repair-cafe/site-staging' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
