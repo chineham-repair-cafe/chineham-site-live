@@ -1,0 +1,35 @@
+name: Push staging to production
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - site/**
+    branches:
+      - production
+
+env:
+  USER_TOKEN: ${{ secrets.PROD_TOKEN }}
+  USER_NAME: "Chineham Repair Cafe Site (GitHub Actions)"
+  USER_EMAIL: "chineham-repair-cafe@users.noreply.github.com"
+  OWNER: chineham-repair-cafe
+  REPOSITORY_NAME: site-production
+
+jobs:
+  push-staging-to-production:
+    name: Publish docs to Wiki
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Add Wiki as a remote
+        run: git remote add prod https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
+
+      - name: Make sure to fetch remotes, unshallowed
+        run: git fetch --unshallow origin
+
+      - name: Mirror all commits to production Wiki remote.
+        run: git push --force prod production:main
