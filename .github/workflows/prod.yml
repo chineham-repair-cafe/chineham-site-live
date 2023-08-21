@@ -33,4 +33,4 @@ jobs:
         run: git fetch --unshallow origin
 
       - name: Mirror all commits to production Wiki remote.
-        run: git push --force prod production:main
+        run: git push --force prod production:production
