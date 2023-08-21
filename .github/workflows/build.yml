@@ -1,4 +1,4 @@
-name: Chineham Repair Cafe - staging website builder and deployer
+name: Chineham Repair Cafe - website builder and deployer
 
 on:
   workflow_dispatch:
