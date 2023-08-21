@@ -1,4 +1,4 @@
-name: Chineham Repair Cafe - website builder and deployer
+name: Chineham Repair Cafe - staging website builder and deployer
 
 on:
   workflow_dispatch:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   build-and-deploy:
-    if: ${{ github.repository == 'chineham-repair-cafe/site-production' }}
     name: Build & deploy static site to GitHub Pages.
     permissions:
       actions: read
