@@ -1,0 +1,24 @@
+name: Chineham Repair Cafe - website builder and deployer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths: [ "site/**" ]
+
+jobs:
+  build-and-deploy:
+    if: ${{ github.repository == 'chineham-repair-cafe/site-production' }}
+    name: Build & deploy static site to GitHub Pages.
+    permissions:
+      actions: read
+      pages: write
+    concurrency: site-build-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy to GitHub
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: site
+        single-commit: true
