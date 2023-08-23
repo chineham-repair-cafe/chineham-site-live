@@ -4,6 +4,17 @@
 * Various amendment to go live
 */
 
+/* import external CSS */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Allerta+Stencil:400";
+@import "https://fonts.googleapis.com/css2?family=Butterfly+Kids&display=swap";
+@import "https://unpkg.com/aos@2.3.1/dist/aos.css";
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css";
+@import "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css";
+@import "https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css";
+@import "https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css";
+@import "https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css";
+@import "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css";
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
