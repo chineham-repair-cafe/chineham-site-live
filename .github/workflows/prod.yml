@@ -1,4 +1,4 @@
-name: Push staging to production
+name: Deploy Staging to Live site
 
 on:
   workflow_dispatch:
@@ -6,19 +6,19 @@ on:
     paths:
       - site/**
     branches:
-      - production
+      - live
 
 env:
   USER_TOKEN: ${{ secrets.PROD_TOKEN }}
   USER_NAME: "Chineham Repair Cafe Site (GitHub Actions)"
   USER_EMAIL: "chineham-repair-cafe@users.noreply.github.com"
   OWNER: chineham-repair-cafe
-  REPOSITORY_NAME: site-production
+  REPOSITORY_NAME: chineham-site-live
 
 jobs:
-  push-staging-to-production:
-    name: Push to Production website, when ready.
-    if: ${{ github.repository == 'chineham-repair-cafe/site-staging' }}
+  push-staging-to-live:
+    name: Push to live website, when ready.
+    if: ${{ github.repository == 'chineham-repair-cafe/chineham-site-staging' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,10 +27,10 @@ jobs:
           persist-credentials: false
 
       - name: Add Wiki as a remote
-        run: git remote add prod https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
+        run: git remote add live-repo https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
 
       - name: Make sure to fetch remotes, unshallowed
         run: git fetch --unshallow origin
 
-      - name: Mirror all commits to production Wiki remote.
-        run: git push --force prod production:production
+      - name: Mirror all commits to live Wiki remote.
+        run: git push --force live-repo live:live

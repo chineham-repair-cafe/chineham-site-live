@@ -1,14 +1,14 @@
-name: Chineham Repair Cafe - website builder and deployer
+name: Deployment workflow to GitHub Pages
 
 on:
   workflow_dispatch:
   push:
-    branches: [ "staging", "production" ]
+    branches: [ "staging", "live" ]
     paths: [ "site/**" ]
 
 jobs:
   build-and-deploy:
-    name: Build & deploy static site to GitHub Pages.
+    name: Build & deploy site to GitHub Pages.
     permissions:
       actions: read
       contents: write
