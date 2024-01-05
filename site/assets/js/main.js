@@ -33,38 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetchEventsJson()
-});
-
-function fetchEventsJson() {
-  const uri = window.location.hostname + "/assets/json/events.json";
-
-  let http = new XMLHttpRequest()
-  http.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-      const data = JSON.parse(this.responseText);
-      populateJson(data);
-    }
-
-    http.open("GET", uri, true);
-    http.setRequestHeader("Accept", "application/json");
-    http.send();
-  }
-}
-
-function populateJson(data) {
-  let table = document.getElementById("eventsTable");
-  data.forEach(function(obj) {
-    if (obj.scheduled === false)
-      return;
-
-    let tr = document.createElement("tr");
-    tr.innerHTML = `<td>${obj.timestamp}</td>\n<td>${obj.venue}</td>`;
-    table.appendChild(tr);
-  });
-}
-
 (function() {
 
   "use strict";
