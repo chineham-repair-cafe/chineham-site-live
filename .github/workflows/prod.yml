@@ -39,8 +39,8 @@ jobs:
 
       - name: Add remotes.
         run: |
-          git remote add live-repo "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/$REPOSITORY_NAME.git"
-          git remote set-url origin "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/chineham-site-staging.git"
+          git remote add live-repo "https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git"
+          git remote set-url origin "https://$OWNER:$USER_TOKEN@github.com/$OWNER/chineham-site-staging.git"
 
       - name: Make sure to fetch remotes, unshallowed.
         run: git fetch --unshallow origin
@@ -72,8 +72,8 @@ jobs:
 
       - name: Add remotes.
         run: |
-          git remote add live-repo "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/$REPOSITORY_NAME.git"
-          git remote set-url origin "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/chineham-site-staging.git"
+          git remote add live-repo "https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git"
+          git remote set-url origin "https://$OWNER:$USER_TOKEN@github.com/$OWNER/chineham-site-staging.git"
 
       - name: Make sure to fetch remotes, unshallowed.
         run: git fetch --unshallow origin
