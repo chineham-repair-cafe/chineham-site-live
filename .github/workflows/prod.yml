@@ -12,6 +12,7 @@ on:
       - site/**
     branches:
       - live
+      - staging
 
 env:
   USER_TOKEN: ${{ secrets.PROD_TOKEN }}
