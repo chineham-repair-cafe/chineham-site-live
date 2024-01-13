@@ -2,6 +2,11 @@ name: Deploy Staging to Live site
 
 on:
   workflow_dispatch:
+    inputs:
+      copy_to_live:
+        description: "Apply changes from staging, to live"
+        required: false
+        type: boolean
   push:
     paths:
       - site/**
@@ -16,20 +21,61 @@ env:
   REPOSITORY_NAME: chineham-site-live
 
 jobs:
-  push-staging-to-live:
-    name: Push to live website, when ready.
-    if: ${{ github.repository == 'chineham-repair-cafe/chineham-site-staging' }}
+  apply-staging-to-live:
+    name: "STAFF ONLY: Apply changes to `live` branch."
+    if: ${{ inputs.copy_to_live && contains(github.ref, 'staging') && github.repository == 'chineham-repair-cafe/chineham-site-staging' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Setup Git user.
+        run: |
+          git config --global user.name "${{ env.USER_NAME }}"
+          git config --global user.email "${{ env.USER_EMAIL }}"
+
+      - name: Checkout repository.
         uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Add Wiki as a remote
+      - name: Add site as a remote.
         run: git remote add live-repo https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
 
-      - name: Make sure to fetch remotes, unshallowed
+      - name: Make sure to fetch remotes, unshallowed.
+        run: git fetch --unshallow origin
+
+      - name: Rebase `staging` onto `live` branche.
+        run: |
+          git checkout live
+          git rebase -Xours staging
+
+      - name: Mirror all commits to live Wiki remote.
+        run: git push --force live-repo live:live
+      
+      - name: Force push `live:live` branch to this repo.
+        run: git push --force origin live:live
+
+      - name: Display info.
+        run: echo "Remember to `git pull --rebase` on the live branch locally!"
+
+
+  push-staging-to-live:
+    name: Push to Live repository, after rebase.
+    if: ${{ github.repository == 'chineham-repair-cafe/chineham-site-staging' && inputs.copy_to_live == false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Git user.
+        run: |
+          git config --global user.name "${{ env.USER_NAME }}"
+          git config --global user.email "${{ env.USER_EMAIL }}"
+
+      - name: Checkout repository.
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Add site as a remote.
+        run: git remote add live-repo https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
+
+      - name: Make sure to fetch remotes, unshallowed.
         run: git fetch --unshallow origin
 
       - name: Mirror all commits to live Wiki remote.
