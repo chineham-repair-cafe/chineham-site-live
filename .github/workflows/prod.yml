@@ -28,33 +28,35 @@ jobs:
     steps:
       - name: Setup Git user.
         run: |
-          git config --global user.name "${{ env.USER_NAME }}"
-          git config --global user.email "${{ env.USER_EMAIL }}"
+          git config --global user.name "$USER_NAME"
+          git config --global user.email "$USER_EMAIL"
 
       - name: Checkout repository.
         uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Add site as a remote.
-        run: git remote add live-repo https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
+      - name: Add remotes.
+        run: |
+          git remote add live-repo "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/$REPOSITORY_NAME.git"
+          git remote set-url origin "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/chineham-site-staging.git"
 
       - name: Make sure to fetch remotes, unshallowed.
         run: git fetch --unshallow origin
 
-      - name: Rebase `staging` onto `live` branche.
+      - name: Rebase `staging` onto `live` branch.
         run: |
           git checkout live
           git rebase -Xours staging
 
       - name: Mirror all commits to live Wiki remote.
         run: git push --force live-repo live:live
-      
+
       - name: Force push `live:live` branch to this repo.
         run: git push --force origin live:live
 
       - name: Display info.
-        run: echo "Remember to `git pull --rebase` on the live branch locally!"
+        run: echo "Remember to run \`git pull --rebase\` on the live branch locally!"
 
 
   push-staging-to-live:
@@ -62,18 +64,15 @@ jobs:
     if: ${{ github.repository == 'chineham-repair-cafe/chineham-site-staging' && inputs.copy_to_live == false }}
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Git user.
-        run: |
-          git config --global user.name "${{ env.USER_NAME }}"
-          git config --global user.email "${{ env.USER_EMAIL }}"
-
       - name: Checkout repository.
         uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Add site as a remote.
-        run: git remote add live-repo https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git
+      - name: Add remotes.
+        run: |
+          git remote add live-repo "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/$REPOSITORY_NAME.git"
+          git remote set-url origin "https://$OWNER:${{ secrets.PROD_TOKEN }}@github.com/$OWNER/chineham-site-staging.git"
 
       - name: Make sure to fetch remotes, unshallowed.
         run: git fetch --unshallow origin
