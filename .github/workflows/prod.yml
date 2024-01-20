@@ -58,25 +58,3 @@ jobs:
 
       - name: Display info.
         run: echo "Remember to run \`git pull --rebase\` on the live branch locally!"
-
-
-  push-staging-to-live:
-    name: Push to Live repository, after rebase.
-    if: ${{ github.repository == 'chineham-repair-cafe/chineham-site-staging' && inputs.copy_to_live == false }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository.
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Add remotes.
-        run: |
-          git remote add live-repo "https://$OWNER:$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.git"
-          git remote set-url origin "https://$OWNER:$USER_TOKEN@github.com/$OWNER/chineham-site-staging.git"
-
-      - name: Make sure to fetch remotes, unshallowed.
-        run: git fetch --unshallow origin
-
-      - name: Mirror all commits to live Wiki remote.
-        run: git push --force live-repo live:live
