@@ -13,7 +13,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Update the countdown on page load.
 
-    const countDownDate = new Date('jan 20, 2024 10:00:00').getTime();
+    const countDownDate = new Date('Feb 17, 2024 10:00:00').getTime();
 
     // Get today's date and time
     const now = new Date().getTime();
