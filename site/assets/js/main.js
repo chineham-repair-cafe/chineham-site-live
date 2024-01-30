@@ -27,13 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // If the countdown is higher than zero, update the header.
     // If not, do nothing.
   
-  /** temp disable 
     if (distance > 0) {
       document.querySelectorAll('.nextRC').forEach((e, _i) => {
         e.innerHTML = `${days} days, ${hours} hours until the next Repair Cafe`;
       });
     };
-    **/
 });
 
 (function() {
