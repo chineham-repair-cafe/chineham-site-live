@@ -10,6 +10,49 @@
 
 */
 
+
+function countdownTo(date) {
+  const countDownDate = new Date(date).getTime();
+
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    if (distance <= 0) {
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    const weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
+    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    let countdownString = "";
+
+    if (weeks > 0) {
+      countdownString += `${weeks} week${weeks > 1 ? 's' : ''}, `;
+    }
+
+    if (days > 0) {
+      countdownString += `${days} day${days > 1 ? 's' : ''}, `;
+    }
+
+    countdownString += `${hours} hour${hours > 1 ? 's' : ''}`;
+
+    document.querySelectorAll('.nextRC').forEach((e, _i) => {
+      e.innerHTML = countdownString + " until the next Repair Cafe";
+    });
+  };
+
+  updateCountdown();
+  const countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  countdownTo('Feb 17, 2024 10:00:00');
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Update the countdown on page load.
 
