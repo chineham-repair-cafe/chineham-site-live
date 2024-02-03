@@ -53,30 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Update the countdown on page load.
-
-    const countDownDate = new Date('Feb 17, 2024 10:00:00').getTime();
-
-    // Get today's date and time
-    const now = new Date().getTime();
-
-    // Find the distance between current timestamp and the next Repair Cafe meetup.
-    const distance = countDownDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-    // If the countdown is higher than zero, update the header.
-    // If not, do nothing.
-  
-    if (distance > 0) {
-      document.querySelectorAll('.nextRC').forEach((e, _i) => {
-        e.innerHTML = `${days} days, ${hours} hours until the next Repair Cafe`;
-      });
-    };
-});
-
 (function() {
 
   "use strict";
