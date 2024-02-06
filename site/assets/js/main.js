@@ -48,11 +48,6 @@ function countdownTo(date) {
   const countdownInterval = setInterval(updateCountdown, 1000);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  countdownTo('Feb 17, 2024 10:00:00');
-});
-
-
 (function() {
 
   "use strict";
